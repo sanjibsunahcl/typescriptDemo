@@ -6,10 +6,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  GestureResponderEvent,
 } from 'react-native';
 export interface IItem {
   item: string;
   quantity: string;
+  //set up event on the function pass
+  onclick?: (event: GestureResponderEvent) => void;
 }
 interface Props {
   setShoppingList: React.Dispatch<React.SetStateAction<IItem[]>>;
@@ -76,11 +79,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   addItemButton: {
-    backgroundColor: '#eb8634',
-    paddingVertical: 20,
-    borderRadius: 5,
+    backgroundColor: '#234',
+    padding: 20,
+    borderRadius: 10,
     alignItems: 'center',
   },
-  buttonText: {color: '#fff', fontWeight: '500'},
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
 });
 export default AddItem;

@@ -1,11 +1,14 @@
 import React from 'react';
 import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {IItem} from './addItem';
-const Item: React.FC<IItem> = ({item, quantity}) => {
+const Item: React.FC<IItem> = ({item, quantity, onclick}) => {
   return (
     <TouchableOpacity style={styles.item}>
       <Text style={styles.itemName}>{item}</Text>
       <Text style={styles.quantity}>x {quantity}</Text>
+      <Text style={styles.quantity} onPress={onclick}>
+        Delete
+      </Text>
     </TouchableOpacity>
   );
 };

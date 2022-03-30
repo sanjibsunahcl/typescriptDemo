@@ -1,7 +1,9 @@
-import * as React from 'react';
-import {View, Button, SafeAreaView, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, SafeAreaView, StyleSheet, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Header from '../components/header';
+import AddItem, {IItem} from '../components/addItem';
+import Item from '../components/item';
 
 export type RootStackParamList = {
   home: undefined;
@@ -12,17 +14,36 @@ export type RootStackParamList = {
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'home'>;
 
 const HomeScreen: React.FC<HomeScreenProps> = props => {
+  const [shoppingList, setShoppingList] = useState<IItem[]>([]);
+
+  const onItemCLick = (item: string, index: number) => {
+    console.log('hjfhdjhjdfhjb nn ' + item + ' ' + index);
+    let filteredArray = shoppingList.filter(value => value.item !== item);
+    // console.log('filuyewyu' + JSON.stringify(filteredArray));
+    setShoppingList(filteredArray);
+  };
+
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <Header title="Home Screen" />
-      <View style={styles.container}>
-        <Button
-          title="Go to Profile"
-          onPress={() => props.navigation.push('profile')}
+      <Header
+        title="Home Screen"
+        menuPress={() => props.navigation.openDrawer()}
+      />
+      <View style={styles.contentWrapper}>
+        <AddItem
+          setShoppingList={setShoppingList}
+          shoppingList={shoppingList}
         />
-        <Button
-          title="Go to Settings"
-          onPress={() => props.navigation.push('settings')}
+        <FlatList
+          data={shoppingList}
+          keyExtractor={(item, index) => `${item.item}-${index}`}
+          renderItem={({item, index}) => (
+            <Item
+              item={item.item}
+              quantity={item.quantity}
+              onclick={() => onItemCLick(item.item, index)}
+            />
+          )}
         />
       </View>
     </SafeAreaView>
@@ -40,5 +61,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
+  },
+  contentWrapper: {
+    padding: 20,
   },
 });

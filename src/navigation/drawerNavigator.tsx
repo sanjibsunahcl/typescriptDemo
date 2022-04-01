@@ -6,11 +6,12 @@ import {
   NavigationContainer,
   // NavigatorScreenParams,
 } from '@react-navigation/native';
-// import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import ExploreIcon from '../assets/icons/exploreIcon';
 import ProfileIcon from '../assets/icons/profileIcon';
 import RestaurantIcon from '../assets/icons/restaurentIcon';
+import DetailScreen from '../screens/detail';
 
 // export type RootStackParams = {
 //   ExploreStack: undefined;
@@ -22,6 +23,8 @@ import RestaurantIcon from '../assets/icons/restaurentIcon';
 // };
 
 const RootStack = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
+
 
 // export type RestaurantsStackParams = {
 //   Restaurants: undefined;
@@ -57,18 +60,18 @@ const RootStack = createDrawerNavigator();
 
 // const ExploreStack = createNativeStackNavigator<ExploreStackParams>();
 
-// const ExploreScreenStack = () => {
-//   return (
-//     <ExploreStack.Navigator
-//       initialRouteName="Explore"
-//       screenOptions={{
-//         headerShown: false,
-//       }}>
-//       <ExploreStack.Screen name="Explore" component={ExploreScreen} />
-//       <ExploreStack.Screen name="Restaurant" component={RestaurantScreen} />
-//     </ExploreStack.Navigator>
-//   );
-// };
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="Profile"
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="details" component={DetailScreen} />
+    </Stack.Navigator>
+  );
+};
 
 const DrawerNavigation = () => {
   return (
@@ -93,7 +96,7 @@ const DrawerNavigation = () => {
 
         <RootStack.Screen
           name="Profile"
-          component={ProfileScreen}
+          component={ProfileStack}
           options={{
             drawerIcon: ({color, size}) => (
               <ProfileIcon color={color} size={size} />

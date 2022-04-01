@@ -9,6 +9,7 @@ export type RootStackParamList = {
   home: undefined;
   settings: undefined;
   profile: undefined;
+  details: undefined;
 };
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'home'>;

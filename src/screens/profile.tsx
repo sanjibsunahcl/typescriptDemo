@@ -7,7 +7,6 @@ import {
   FlatList,
   Text,
   TouchableOpacity,
-  Alert,
   Image,
 } from 'react-native';
 import Header from '../components/header';
@@ -19,11 +18,16 @@ type ProfileScreenProps = NativeStackScreenProps<
   'settings'
 >;
 
-interface moviesData {
+interface MoviesData {
   title: string;
   releaseYear: string;
   image: string;
 }
+
+// interface UData {
+//   order: any;
+//   image: string;
+// }
 
 const ProfileScreen: React.FC<ProfileScreenProps> = props => {
   const [data, setData] = useState([]);
@@ -38,23 +42,23 @@ const ProfileScreen: React.FC<ProfileScreenProps> = props => {
 
     const imgData = [
       'http://i.ytimg.com/vi/Dwyx0h9h8zg/maxresdefault.jpg',
-      'http://th.bing.com/th/id/OIP.n9drVpzOz5UaxSfuzCQvTAHaE8?pid=ImgDet&rs=1',
+      'http://i.pinimg.com/736x/92/0e/25/920e258281b95fdd2383308df19be0a4.jpg',
       'http://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/323725_1100-1100x628.jpg',
       'http://preview.redd.it/fr989oxe0u951.jpg?auto=webp&s=ef404791faa93ab9a89ab70cbafb6e4b906a85f6',
-      'http://th.bing.com/th/id/OIP.cM6emaZ2xeZpAdSWc2buigHaFR?pid=ImgDet&rs=1',
+      'http://th.bing.com/th/id/OIP.Uc6eZ31itjoqx71i9wQcMAHaFj?pid=ImgDet&rs=1',
     ];
 
     try {
       const response = await fetch('http://reactnative.dev/movies.json');
       const json = await response.json();
-      let moviesData = json.movies;
-      for (let index = 0; index < moviesData.length; index++) {
-        moviesData[index].image = imgData[index];
-      }
-      // const moviesData = json.movies.map((order,index) => ({
-      //   ...order,
-      //   image: imgData[index],
-      // }));
+      // let moviesData = json.movies;
+      // for (let index = 0; index < moviesData.length; index++) {
+      //   moviesData[index].image = imgData[index];
+      // }
+      const moviesData = json.movies.map((order: any, index: number) => ({
+        ...order,
+        image: imgData[index],
+      }));
       setData(moviesData);
       setLoading(false);
       console.log('jghdhjghjd' + JSON.stringify(moviesData));
@@ -65,15 +69,16 @@ const ProfileScreen: React.FC<ProfileScreenProps> = props => {
     }
   };
 
-  const renderMovieList = (item: moviesData) => (
+  const renderMovieList = (item: MoviesData) => (
     <TouchableOpacity
       style={styles.boxStyle}
-      onPress={() => Alert.alert(JSON.stringify(item))}>
+      onPress={() => props.navigation.navigate('details', {data: item})}>
       <Image
         source={{
           uri: item.image,
         }}
-        style={styles.imageStyle}></Image>
+        style={styles.imageStyle}
+      />
       <View>
         <Text style={styles.itemText}>{'Title:- ' + item.title}</Text>
         <Text style={styles.itemText}>

@@ -6,17 +6,23 @@ import {
   TouchableOpacity,
   GestureResponderEvent,
 } from 'react-native';
+import BackIcon from '../assets/icons/backIcon';
 import DrawerMenuIcon from '../assets/icons/drawerMenuIcon';
 interface Props {
   title: string;
   menuPress?: (event: GestureResponderEvent) => void;
+  isBackBtnVisible?: boolean;
 }
-const Header: React.FC<Props> = ({title, menuPress}) => {
+const Header: React.FC<Props> = ({title, menuPress, isBackBtnVisible}) => {
   return (
     <View style={styles.header}>
       <Text style={styles.headerText}>{title}</Text>
       <TouchableOpacity style={styles.menuStyle} onPress={menuPress}>
-        <DrawerMenuIcon color="#234" size={30} />
+        {isBackBtnVisible ? (
+          <BackIcon color="black" size={30} />
+        ) : (
+          <DrawerMenuIcon color="black" size={30} />
+        )}
       </TouchableOpacity>
     </View>
   );
@@ -32,8 +38,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerText: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
+    // fontWeight: 'bold',
+    color: 'black',
   },
   menuStyle: {
     position: 'absolute',

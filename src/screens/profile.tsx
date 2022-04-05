@@ -29,7 +29,7 @@ interface MoviesData {
 //   image: string;
 // }
 
-const ProfileScreen: React.FC<ProfileScreenProps> = props => {
+const ProfileScreen: React.FC<ProfileScreenProps> = (props: any) => {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
 

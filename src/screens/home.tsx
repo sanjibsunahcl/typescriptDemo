@@ -14,12 +14,14 @@ export type RootStackParamList = {
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'home'>;
 
-const HomeScreen: React.FC<HomeScreenProps> = props => {
+const HomeScreen: React.FC<HomeScreenProps> = (props: any) => {
   const [shoppingList, setShoppingList] = useState<IItem[]>([]);
 
-  const onItemCLick = (item: string, index: number) => {
+  const onItemCLick = (item: string, index: number, data: IItem) => {
     console.log('hjfhdjhjdfhjb nn ' + item + ' ' + index);
-    let filteredArray = shoppingList.filter(value => value.item !== item);
+    console.log(JSON.stringify(data));
+
+    let filteredArray = shoppingList.filter(value => value.id !== data.id);
     // console.log('filuyewyu' + JSON.stringify(filteredArray));
     setShoppingList(filteredArray);
   };
@@ -42,7 +44,7 @@ const HomeScreen: React.FC<HomeScreenProps> = props => {
             <Item
               item={item.item}
               quantity={item.quantity}
-              onclick={() => onItemCLick(item.item, index)}
+              onclick={() => onItemCLick(item.item, index, item)}
             />
           )}
         />

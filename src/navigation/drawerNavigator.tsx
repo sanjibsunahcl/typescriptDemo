@@ -25,7 +25,6 @@ import DetailScreen from '../screens/detail';
 const RootStack = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
-
 // export type RestaurantsStackParams = {
 //   Restaurants: undefined;
 //   Restaurant: {
@@ -111,7 +110,7 @@ const DrawerNavigation = () => {
             drawerIcon: ({color, size}) => (
               <RestaurantIcon color={color} size={size} />
             ),
-            drawerLabel: 'Settings',
+            drawerLabel: 'Listing',
           }}
         />
       </RootStack.Navigator>

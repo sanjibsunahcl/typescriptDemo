@@ -11,6 +11,7 @@ import {
 export interface IItem {
   item: string;
   quantity: string;
+  id?: number;
   //set up event on the function pass
   onclick?: (event: GestureResponderEvent) => void;
 }
@@ -31,6 +32,7 @@ const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
         {
           item,
           quantity: quantity || '1',
+          id: Math.random(),
         },
       ]);
       setItem('');
